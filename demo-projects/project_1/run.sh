@@ -10,11 +10,11 @@ docker volume create mongodb_vol
 
 echo '**** Starting MongoDB ****'
 
-docker run --name mongodb --mount type=volume,source=${PWD}/backend/data,target=mongodb_vol -d --rm --network proj1-net mongo
+docker run --name mongodb -v mongodb_vol:/data/db -d --rm --network proj1-net -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=secret  mongo
 
 echo '**** Starting Backend ****'
 
-docker run --name proj1back --network proj1-net -d --rm -p 3001:80 proj1-backend
+docker run --name proj1back -v ${PWD}/backend:/app -v logs:/app/logs -v /app/node_modules -e MONGODB_USERNAME=admin -e MONGODB_PASSWORD=secret --network proj1-net -d --rm -p 3001:80 proj1-backend
 
 echo '**** Starting Frontend ****'
 
