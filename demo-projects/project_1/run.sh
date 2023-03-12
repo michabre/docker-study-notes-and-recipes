@@ -14,7 +14,7 @@ docker run --name mongodb -v mongodb_vol:/data/db -d --rm --network proj1-net -e
 
 echo '**** Starting Backend ****'
 
-docker run --name proj1back -v ${PWD}/backend:/app -v logs:/app/logs -v /app/node_modules -e MONGODB_USERNAME=admin -e MONGODB_PASSWORD=secret --network proj1-net -d --rm -p 3001:80 proj1-backend
+docker run --name proj1back --mount type=bind,source=${PWD}/backend,target=/app -v /app/node_modules -e MONGODB_USERNAME=admin -e MONGODB_PASSWORD=secret --network proj1-net -d --rm -p 3001:80 proj1-backend
 
 echo '**** Starting Frontend ****'
 
