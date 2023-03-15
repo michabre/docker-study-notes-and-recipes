@@ -18,6 +18,6 @@ docker run --name proj1back --mount type=bind,source=${PWD}/backend,target=/app 
 
 echo '**** Starting Frontend ****'
 
-docker run -d --rm -p 3000:80 --name proj1front proj1-frontend
+docker run --mount type=bind,source=${PWD}/frontend/src,target=/app/src -d --rm -p 3000:80 --name proj1front proj1-frontend
 
 echo '**** Launch Completed ****'
